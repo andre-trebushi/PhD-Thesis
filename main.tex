@@ -1,4 +1,5 @@
 \documentclass[twoside]{layout/siccs-thesis}
+\usepackage{pdfpages}
 
 %% for equations a  nice parameter description
 \newenvironment{conditions}
@@ -21,6 +22,20 @@
 %\usepackage[style=authoryear,sorting=nyt,maxcitenames=3]{biblatex}
 \usepackage{biblatex}
 \addbibresource{references.bib}
+\addbibresource{zotero_lib.bib}
+
+\usepackage{color,soul}
+\usepackage{amsmath} % For math features
+\usepackage{empheq}  % For emphasizing equations
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+
+\newcounter{mycounter} % Define a new counter
+\setcounter{mycounter}{1} % Set the counter to 1
+\newcommand{\rr}[1]{\textcolor{red}{[#1]}}
+\newcommand{\oo}[1]{\textcolor{orange}{[#1]}}
 
 % for spacing between references in the bibliography
 \setlength\bibitemsep{1.5\itemsep}
@@ -82,6 +97,8 @@ number-unit-product = \hspace{0.16667em plus 0.08334em}}
 \input{frontmatter/abstract}
 \newpage
 
+\input{frontmatter/acknowledgement}
+
 \tableofcontents
 
 \newpage\null\thispagestyle{empty}\newpage
@@ -95,25 +112,20 @@ number-unit-product = \hspace{0.16667em plus 0.08334em}}
 \mainmatter
 \pagestyle{fancy}
 
-\setcounter{page}{9}
-\input{content/introduction}
+\setcounter{page}{1}
 
-\input{content/theory}
+\input{content/_introduction}
+\input{content/1_Synchrotron_Radiation}
+\input{content/2_Statistical_Optics}
+%\input{content/3_FEL_Theory}
+\input{content/ebeam_size_with_SR}
+\input{content/5_THz_Source}
+\input{content/6_Iris_line}
 
-%\input{content/chapter-2}
-%\input{content/chapter-3}
-
-\input{content/methods}
-%\input{mainmatter/chapter-4} % Create file to add
-
-\input{content/results}
-
-\input{content/discussion}
-\input{content/conclusion}
+\input{content/Summary and conclusions}
 
 \newpage
 \setcounter{secnumdepth}{-1}
-\input{content/acknowledgement}
 
 %% Prevent urls running into margins in bibliography
 \setcounter{biburlnumpenalty}{7000}
@@ -124,7 +136,8 @@ number-unit-product = \hspace{0.16667em plus 0.08334em}}
 
 %%  Add the bibliography
 %\printbibliography[heading=bibintoc,title=References]
-\printbibliography[heading=bibintoc,title=References]
+%\printbibliography[heading=bibintoc,title=References]
+\printbibliography%[heading=bibintoc]
 
 % Letters for chapters
 \appendix

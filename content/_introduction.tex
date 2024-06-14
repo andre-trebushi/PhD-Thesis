@@ -1,0 +1,80 @@
+\chapter{Introduction}
+
+I decided to present my PhD thesis on a cumulative style, meaning the the manuscript contains my original papers where I was the first author. While this does not implies that the thesis only contains these paper, but I provided required theoretical back ground with from my own perspective. On top of that I included here some result that were not included in publications and surely provide a more comprehensive insight on my research the topic than the format of a regular publication could afford. Nevertheless, some material from the paper inevitably repeated in the main text of this thesis, mainly it is the theory part as it was need to better illustrate basic principles of the theory. Most of the results of my research are exclusively presented in the papers.
+
+This work has the following order: in the first chapter provide an overview on the topic of this thesis, discuss relevance of the results presented here. To complete this chapter I give a derive very numerically efficient expression for radiation propagation in free space: this expression will be used almost in every simulation result I will present here. 
+
+In the second chapter I introduce basics of the statistical optics phenomena and lows: radiation cross-spectral purity, Guassian process and mutual coherence function propagation - these are the basics that I use later in my work but could be omitted if a reader already mastered the topic. Then I present the van Cittert-Zirnike theorem and provide a very numerically efficient formula to simulate incoherent radiation sources. To demonstrate applicability of the formula I provide simulation of the original Young's experiment that apparently was not double slit experiment but "slip of card" experiment and also describe famous Brown and Twiss with the numerical approach I will have demonstrated (??)
+
+With the third chapter I provide general derivation of the expression for the radiation from charged particles in electromagnetic fields. In this chapter I examine the source properties of the undulator source and present unexpected its unexpected features at the end of the device and also in the case when usual approximation of large number of periods is weak I point out a "wiggling" behaviour of the source. As the concluding section I present Monte Carlo methods to simulate partially coherent radiation.
+
+In the forth chapter, I present two very computationally efficient algorithms for simulating partially coherent radiation wavefronts. The set on algorithms are united by the backcronim name SERVAL that stand for Spontaniouce Emition rapid eVALuator. The algorithms utilize the knowledge of the statistical properties of the radiation to simulated single instances of the field. The main part of the chapter will be occupied by to articles in which the algorithms presented and then these article are supplemented by a comprehensive on applicability and numerical efficiency compared to Monte Carlo and mode decomposition methods. 
+
+As a continuation of the discussion, in the next, sixth, chapter I will present a method for electron beam diagnostics based on measuring correlation function of the undulator radiation in the far zone. The experiment was performed at the SASE 1 and 2 undulator beamlimes of European XFEL using one cell closed. 
+
+In the seventh chapter, I will present a code for simulating SR radiation in the present of boundary condition (wave guide) and experiment the performance of iris wave guade for propagation THz radiation over a long distances. This work is part of STERN project for delivering European XFEL a THz source for pump probe experiments.  
+
+\label{chapter:introduction}
+
+\section{Maxwell's equations}
+    \subsection{Wave equation}
+    At first I write Maxwell's equations 
+    \begin{align}
+        \
+        \vec{\nabla} \cdot \vec{E} &= 4 \pi \rho \;\;\; \textup{Gauss's law}\\
+        \vec{\nabla} \cdot \vec{B} &= 0 \;\;\; \textup{Gauss's law for magnetism}\\
+        \vec{\nabla} \times \vec{E} &= - \frac{1}{c} \frac{\partial \vec{B}}{\partial t} \;\;\; \textup{Faraday's law of induction}\\
+        \vec{\nabla} \times \vec{B} &= \frac{4 \pi}{c} \vec{j} + \frac{1}{c} \frac{\partial \vec{E}}{\partial t} \;\;\; \textup{Ampère's circuital law (with Maxwell's addition)}
+    \end{align}
+    Substituting the forth one into the third:
+    \begin{align}
+        c^2 \nabla \times (\nabla \times \vec{E}) = - \frac{\partial^2 \vec{E}}{\partial t^2} - 4 \pi \frac{\partial \vec{j}}{\partial t}
+    \end{align}
+    knowing that $\nabla\times (\nabla \times \vec{E}) = \nabla(\nabla \cdot \vec{E}) - \nabla^2 \vec{E}$ and using Gauss's law I obtain:
+    \begin{align}
+        c^2 \nabla^2 \vec{E} - \frac{\partial^2 \vec{E}}{\partial t^2} = - 4 \pi c^2 \vec{\nabla} \rho + 4 \pi \frac{\partial \vec{j}}{\partial t}
+    \end{align}
+    Now I write the wave equation in $\omega$-domain using definition of the Fourier transforms:
+    \begin{align}
+        \bar{f}(\omega) = \int_{-\infty}^{\infty} dt f(t) e^{i \omega t}
+    \end{align}
+    And inverse one:
+    \begin{align}
+        f(t) = \int_{-\infty}^{\infty} d\omega \bar{f}(\omega) e^{-i \omega t},
+        \label{Eq:IFT}
+    \end{align}
+    so using Eq.~\ref{Eq:IFT} I obtain:
+    \begin{align}
+        c^2 \nabla^2 \vec{\bar{E}} + \omega^2 \vec{\bar{E}} = 4 \pi c^2 \vec{\nabla} \bar{\rho} - 4 \pi i \omega \vec{\bar{j}}.
+        \label{Eq:Helmholtz_eq}
+    \end{align}
+
+\section{Fourier optics}
+
+    \subsubsection{Free space propagation}
+    Let's come back to Eq.~\ref{Eq:Helmholtz_eq} to derive an equation for free space propagation. Rewriting this equation here for the charge- and current-less space and accounting for $k_0 = \cfrac{\omega}{c}$
+    \begin{align}
+        \nabla^2 \vec{\bar{E}} + k_0^2 \vec{\bar{E}} = 0
+        \label{Eq:free_space_wave_eq}
+    \end{align}
+    similarly to the temporal domain we define transverse space Fourier transform:
+    \begin{align}
+        \vec{\hat{\bar{E}}}(\omega, k_x, k_y, z) = \iint_{\mathbb{R}^2} \vec{\bar{E}}(\omega, x, y, z)e^{i (k_x x + k_y y)} dx dy
+        \label{Eq:FT_transvece}
+    \end{align}
+    and inverse
+    \begin{align}
+        \vec{\bar{E}}(\omega, x, y, z) = \iint_{\mathbb{R}^2} \vec{\hat{\bar{E}}}(\omega, k_x, k_y, z) e^{-i (k_x x + k_y y)} dk_x dk_y
+        \label{Eq:IFT_transvece}
+    \end{align}
+    substituting Eq.~\ref{Eq:IFT_transvece} in Eq.~\ref{Eq:free_space_wave_eq} we obtain:
+    \begin{align}
+        \cfrac{d^2\vec{\hat{\bar{E}}}}{dz^2} + k_0 \bigg(1 - \frac{k^2_x}{k^2_0} - \frac{k^2_y}{k^2_0}\bigg) \vec{\hat{\bar{E}}} = 0
+    \end{align}
+    here we know field distribution at $z=0$ which is $\vec{\hat{\bar{E}}}(\omega, k_x, k_y, 0)$ and we are looking for a solution that propagates forward that give me the following expression for the field at any $z$:
+    \begin{align}
+        \vec{\hat{\bar{E}}}(\omega, k_x, k_y, z) = \vec{\hat{\bar{E}}}(\omega, k_x, k_y, 0)\exp{\bigg[ ik_0 z \sqrt{1 - \frac{k^2_x}{k^2_0} - \frac{k^2_y}{k^2_0}}\bigg]}
+    \end{align}
+
+\section{Electron beam optics}
+

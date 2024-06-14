@@ -1,0 +1,41 @@
+\subsection{Interference laws and Young's double slit experiment}
+    I consider here simple geometry of the double slit experiment and show the condition under which one can disintegrate transverse coherence properties of the radiation. 
+    
+    The field can be written as the sum of two fields 
+    \begin{align}
+        E(\vec{r}, t) = A_1 E(\vec{r_1}, t + \Delta t) + A_2 E(\vec{r_2}, t - \Delta t), 
+    \end{align}
+    where $t_1 = R_1/c$ and $t_2 = R_2/c$. The observed intensity of this radiation is:
+    \begin{align}
+        I(\vec{r}, t) = |A_1|^2 I(\vec{r}_1, t + \Delta t) + |A_2|^2 I(\vec{r}_2, t - \Delta t) + 
+        2 \mathfrak{Re} \{ A_1^* A_2 E^*(\vec{r_1}, t + \Delta t) E(\vec{r_2}, t - \Delta t) \}
+    \end{align}
+    And rewriting is the the statistical average oven an ensemble and knowing that $\langle I(\vec{r}_{1,2}, t \pm \Delta t) \rangle = I(\vec{r}_{1,2})f(\bar{t} \pm \Delta t)$:
+    \begin{align}
+        \langle I(\vec{r}, t) \rangle = 
+        |A_1|^2 I(\vec{r}_{1})f(\bar{t} + \Delta t) + 
+        |A_2|^2 I(\vec{r}_{2})f(\bar{t} - \Delta t) + 
+        2 \mathfrak{Re} \{ A_1^* A_2 \langle E^*(\vec{r_1}, t + \Delta t) E(\vec{r_2}, t - \Delta t) \rangle\}
+    \end{align}
+    as one can see $\langle E^*(\vec{r_1}, t - t_1) E(\vec{r_2}, t - t_2) \rangle = \Gamma (\vec{r_1}, \vec{r_2}, t_1, t_2) = g_t(\vec{r}_1, \vec{r}_2, \Delta t) f(\bar{t})$. 
+    And now let's assume that our radiation is quasi-stationary and use Eq.~\ref{Eq:weak_quasi_homo} and write:
+    \begin{align}
+        \langle I(\vec{r}, t) \rangle = 
+        |A_1|^2 I(\vec{r}_{1})f(\bar{t}) + 
+        |A_2|^2 I(\vec{r}_{2})f(\bar{t}) + 2|A_1| |A_2| f(\bar{t}) \mathfrak{Re} \big\{ g_t(\vec{r}_1, \vec{r}_2, \Delta t)\big\},
+    \end{align}
+    here I assumed that the time difference $\Delta t$ is much smaller than the radiation coherence time: $\Delta t \ll \tau_c < \sigma_{\tau}$, where $ \sigma_{\tau}$ is the pulse duration determined by the distribution $f(\bar{t})$. Interesting to note that the expression is the "instant" interference, as written for specific time, to obtain the real observed signal one need to average over time response function of a detector.
+
+    $g_t$ function can be expressed as the following:
+    \begin{align}
+        g_t(\vec{r}_1, \vec{r}_2, \Delta t) = |g(\vec{r}_1, \vec{r}_2, \Delta t)|e^{i \{\alpha(\vec{r}_1, \vec{r}_2, \Delta t) - \omega \Delta t\}}, 
+    \end{align}
+    where $\alpha(\vec{r}_1, \vec{r}_2, \Delta t) = \textup{arg} g_t(\vec{r}_1, \vec{r}_2, \Delta t) + \omega \Delta t$. With chosen $\Delta t$ I notice that $|g(\vec{r}_1, \vec{r}_2, t_2 - t_1)|$ and $Arg(g(\vec{r}_1, \vec{r}_2, t_2 - t_1))$ varies very slowly with respect to this time difference and I can approximate $g_t$:
+    \begin{align}
+        g_t(\vec{r}_1, \vec{r}_2, \Delta t) \approx g_t(\vec{r}_1, \vec{r}_2, 0) e^{-i \omega \Delta t}
+    \end{align}
+    $g_t(\vec{r}_1, \vec{r}_2, 0) = J(\vec{r}_1, \vec{r}_2)$ is simply called mutual intensity function.
+    and I notice the relation 
+    \begin{align}
+        \langle E(\vec{r}_1, \bar{\omega})E^*(\vec{r}_1, \bar{\omega})\rangle = G_{\omega}(\vec{r}_1, \vec{r}_2, \bar{\omega}) = \frac{1}{2 \pi} \int \limits_{-\infty}^{\infty}  g_t(\vec{r}_1, \vec{r}_2, \Delta t) e^{i \bar{\omega} \Delta t} d \Delta t
+    \end{align} 
